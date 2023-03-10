@@ -1,21 +1,22 @@
-version: '1.0'
+version: '3.1'
 
 services:
-  mydb:
-    container_name: mydb
+  signtoalldb:
+    container_name: signtoalldb
     image: mongo
+    restart: always
     ports:
       - '27017:27017'
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=nestuser
-      - MONGO_INITDB_ROOT_PASSWORD=nestuser
-      - MONGO_INITDB_DATABASE=nestdb
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_DATABASE: signtoalldb
     volumes:
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
       - ./mongo-db:/data/db
 
   myapp:
-    container_name: myapp
+    container_name: signtoall-back
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -27,4 +28,4 @@ services:
       - 9229:9229
       - 3100:8080
     depends_on:
-      - mydb
+      - signtoalldb
