@@ -10,6 +10,8 @@ docker-compose up -d mongodb
 docker-compose ps
 ```
 
+## Validators
+https://github.com/typestack/class-validator#passing-options
 
 
 <p align="center">
