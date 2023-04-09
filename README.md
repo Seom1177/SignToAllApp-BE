@@ -1,4 +1,17 @@
 <h1>Sign To All App (BackEnd)</h1>
+
+# Up mongodb container
+```sh
+docker-compose up -d mongodb
+```
+
+# Check
+```sh
+docker-compose ps
+```
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
