@@ -14,6 +14,7 @@ async function bootstrap() {
 
   //open api
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('SignToAll API')
     .setDescription('Documentation of SignToAll API')
     .setVersion('1.0')
