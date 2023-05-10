@@ -8,9 +8,9 @@ import { UserService } from '../services/user.service';
 @Controller('user')
 export class UserController {
     constructor( private readonly userService: UserService) {}
-    @UseGuards(JwtAuthGuard)
-    @Get()
-    findAll(){
-        return this.userService.findAll();
-    }
+    // @UseGuards(JwtAuthGuard)
+    // @Get()
+    // findAll(){
+    //     return this.userService.findAll();
+    // }
 }

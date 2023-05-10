@@ -48,6 +48,13 @@ https://github.com/typestack/class-validator#passing-options
 $ npm install
 ```
 
+## Create module
+```bash
+$ nest g mo user
+$ nest g co users/controller/users --flat
+$ nest g s activities/services/activities --flat
+```
+
 ## Running the app
 
 ```bash
