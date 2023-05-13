@@ -17,6 +17,9 @@ export class Activity{
 
     @Prop()
     image: string;
+
+    @Prop()
+    url: string;
 }
 
 export const ActivitySchema = SchemaFactory.createForClass(Activity);
