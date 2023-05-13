@@ -1,15 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsNotEmpty, IsNumber } from "class-validator";
+import { IsNotEmpty, IsNumber } from "class-validator";
 
 export class AddActivityByUser {
-    @ApiProperty({
-        description: 'Id del usuario que realizo la actividad',
-      })
-    @IsNotEmpty({
-        message: 'No hay un usuario'
-    })
-    idUser: string;
-
     @ApiProperty()
     @IsNotEmpty({
         message: 'No hay una actividad'
@@ -23,10 +15,6 @@ export class AddActivityByUser {
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsBoolean()
-    isDone: boolean;
-
-    @ApiProperty()
-    @IsNotEmpty()
+    @IsNumber()
     timeDone: number;
 }

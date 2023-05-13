@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ActivitiesModule } from './activities/activities.module';
 import { ActivityByUserModule } from './activity-by-user/activity-by-user.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -12,11 +13,12 @@ import { ActivityByUserModule } from './activity-by-user/activity-by-user.module
       envFilePath: `./src/environments/.env.${process.env.NODE_ENV}`,
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.DB_URL),
+    MongooseModule.forRoot(process.env.DB_URL + process.env.DB_NAME),
     AuthModule,
     UserModule,
     ActivitiesModule,
     ActivityByUserModule,
+    SharedModule,
   ],
 })
 export class AppModule {}
