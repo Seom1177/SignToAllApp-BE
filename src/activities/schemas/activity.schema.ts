@@ -14,6 +14,12 @@ export class Activity{
 
     @Prop()
     description: string;
+
+    @Prop()
+    image: string;
+
+    @Prop()
+    url: string;
 }
 
 export const ActivitySchema = SchemaFactory.createForClass(Activity);
