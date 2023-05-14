@@ -15,9 +15,8 @@ export class UserService {
         @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
         private readonly jwtService: JwtService) {}
         
-    async getUserData(request: Request): Promise<userResponse>{
-        const tokenHeader: string = request.headers["authorization"]
-        const tokenDecode = this.jwtService.decode(tokenHeader.split(' ')[1], { json: true }) as Token
+    async getUserData(request: string): Promise<userResponse>{
+        const tokenDecode = this.jwtService.decode(request.split(' ')[1], { json: true }) as Token
         const finduser = await this.userModel.findOne({
             email:tokenDecode.email,
              name:tokenDecode.name

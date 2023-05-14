@@ -20,9 +20,8 @@ export class ActivityByUserService {
         @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
         private readonly jwtService: JwtService) {}
 
-    async AddActivityByUser(request: Request, activity: AddActivityByUser): Promise<ActivityByUserDto>{
-        const tokenHeader: string = request.headers["authorization"]
-        const tokenDecode = this.jwtService.decode(tokenHeader.split(' ')[1], { json: true }) as Token
+    async AddActivityByUser(request: string, activity: AddActivityByUser): Promise<ActivityByUserDto>{
+        const tokenDecode = this.jwtService.decode(request.split(' ')[1], { json: true }) as Token
         const finduser = await this.userModel.findOne({
             email:tokenDecode.email,
              name:tokenDecode.name
@@ -65,9 +64,8 @@ export class ActivityByUserService {
         return response;
     }
 
-    async FindActivityByUser(request: Request): Promise<ActivityByUserDto[]>{
-        const tokenHeader: string = request.headers["authorization"]
-        const tokenDecode = this.jwtService.decode(tokenHeader.split(' ')[1], { json: true }) as Token
+    async FindActivityByUser(request: string): Promise<ActivityByUserDto[]>{
+        const tokenDecode = this.jwtService.decode(request.split(' ')[1], { json: true }) as Token
         const finduser = await this.userModel.findOne({
             email:tokenDecode.email,
              name:tokenDecode.name

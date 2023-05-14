@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ActivityByUserService } from '../services/activity-by-user.service';
 import { AddActivityByUser } from '../dto/AddActivityByUser';
+import { Request} from 'express';
 
 @ApiTags('activity-by-user')
 @Controller('activity-by-user')
@@ -15,12 +16,12 @@ export class ActivityByUserController {
     @UseGuards(JwtAuthGuard)
     @Post('add')
     AddActivityByUser(@Req() request: Request, @Body() idActivity:AddActivityByUser ){
-        return this.activityByUserService.AddActivityByUser(request, idActivity);
+        return this.activityByUserService.AddActivityByUser(request.headers.authorization, idActivity);
     }
 
     @UseGuards(JwtAuthGuard)
     @Get('get')
     getActivitiesByUser(@Req() request: Request){
-        return this.activityByUserService.FindActivityByUser(request);
+        return this.activityByUserService.FindActivityByUser(request.headers.authorization);
     }
 }
