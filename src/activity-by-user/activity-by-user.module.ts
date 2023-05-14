@@ -28,7 +28,7 @@ import { Activity, ActivitySchema } from 'src/activities/schemas/activity.schema
     JwtModule.registerAsync({
       imports: [ConfigModule],
             useFactory: async (configService: ConfigService) => ({
-                secretOrPrivateKey: configService.get('JWT_SECRET'),
+              secret: configService.get('JWT_SECRET'),
                 signOptions: {
                     expiresIn: 3600,
                 },
