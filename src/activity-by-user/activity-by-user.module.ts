@@ -4,7 +4,6 @@ import { ActivityByUserService } from './services/activity-by-user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ActivityByUser, ActivityByUserSchema } from './schemas/activity-by-user.schema';
 import { User, UserSchema } from 'src/user/schemas/user.schema';
-import { SharedModule } from 'src/shared/shared.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Activity, ActivitySchema } from 'src/activities/schemas/activity.schema';
