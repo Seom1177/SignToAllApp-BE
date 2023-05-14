@@ -20,13 +20,16 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('user')
     .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('doc', app, document);
-
-  // env values
-  app.use(morgan('dev'));
   const configService = app.get(ConfigService);
   await app.listen(configService.get('PORT'), configService.get('HOST_NAME'));
-  console.log(`Open swagger: ${await app.getUrl()}/doc and process.env: ${process.env.NODE_ENV}`);
+
+  if (configService.get('PRODUCTION') === 'false'){
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('doc', app, document);
+  
+    // env values
+    app.use(morgan('dev'));
+    console.log(`Open swagger: ${await app.getUrl()}/doc and process.env: ${process.env.NODE_ENV}`);
+  }
 }
 bootstrap();
