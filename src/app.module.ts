@@ -10,7 +10,7 @@ import { SharedModule } from './shared/shared.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `./src/environments/.env.${process.env.NODE_ENV}`,
+      envFilePath: [`./src/environments/.env.${process.env.NODE_ENV}`, '.env'],
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DB_URL + process.env.DB_NAME),
