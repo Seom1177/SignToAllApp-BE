@@ -68,7 +68,7 @@ export class ActivityByUserService {
         const tokenDecode = this.jwtService.decode(request.split(' ')[1], { json: true }) as Token
         const finduser = await this.userModel.findOne({
             email:tokenDecode.email,
-             name:tokenDecode.name
+            nuip: tokenDecode.nuip
         });
         
         const findActivities = await this.activityModel.find({});

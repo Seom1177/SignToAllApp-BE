@@ -8,6 +8,8 @@ import { RegisterAuthDto } from '../dto/register-auth.dto';
 import { LoginAuthDto } from '../dto/login-auth.dto';
 import { TokenResponseDto } from 'src/shared/dto/tokenResponse.dto';
 import { Token } from 'src/shared/dto/token.dto';
+import { UserDto } from '../dto/user.dto';
+import { userResponse } from 'src/user/dto/userResponse.dto';
 @Injectable()
 export class AuthService {
 	constructor(
@@ -15,11 +17,27 @@ export class AuthService {
     private jwtAuthService: JwtService,
   ) {}
 
-	async register(userObject: RegisterAuthDto) {
+	async register(userObject: RegisterAuthDto): Promise<userResponse> {
+    const findUser = await this.userModel.findOne({ $or: [{email: userObject.email}, {nuip: userObject.nuip}]});
+
+    if (findUser) throw new HttpException('Este usuario ya existe', 404);
+
     const { password } = userObject; // Texto Plano
     const plainToHash = await bcrypt.hash(password, + process.env.HASH_SALT); //return encrypt password
     userObject = { ...userObject, password: plainToHash };
-    return this.userModel.create(userObject);
+
+    await this.userModel.create(userObject);
+    const findUserDb = await this.userModel.findOne({ $or: [{email: userObject.email}, {nuip: userObject.nuip}]});
+
+    const response: userResponse = {
+      name: findUserDb.name,
+      lastName: findUserDb.lastName,
+      email: findUserDb.email,
+      birthDay: findUserDb.birthDay,
+      nuip: findUserDb.nuip,
+      gender: findUserDb.gender
+    }
+    return response;
   }
 
 	async login(userObjectlogin: LoginAuthDto): Promise<TokenResponseDto> {
@@ -35,8 +53,8 @@ export class AuthService {
     const payLoad:Token = { 
       email: findUser.email,
       name: findUser.name,
-      lastName: findUser.lastName
-
+      lastName: findUser.lastName,
+      nuip: findUser.nuip
     }; // public data
     const token = await this.jwtAuthService.sign(payLoad);
 		
@@ -44,6 +62,7 @@ export class AuthService {
       email: findUser.email,
       name: findUser.name,
       lastName: findUser.lastName,
+      nuip: findUser.nuip,
       token,
     };
 
